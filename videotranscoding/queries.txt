@@ -1,0 +1,7 @@
+SELECT file_name, status_desc, platform_name, quality_name
+FROM `vt_process_master` AS a, vt_status_lookup AS b, vt_inputdata_master AS c, vt_format_lookup AS d, vt_quality_lookup AS e, vt_platform_lookup as f
+WHERE a.status_id = b.status_id
+AND a.queued_file_id = c.file_id
+AND a.op_format_id = d.format_id
+AND d.quality_id = e.quality_id
+AND d.platform_id = f.platform_id

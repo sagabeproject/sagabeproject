@@ -1,0 +1,58 @@
+@charset "utf-8";
+/* CSS Document */
+
+body
+{
+	font-family: arial, helvetica, sans-serif;
+}
+
+table
+{
+	border-collapse: collapse;
+	margin-bottom: 3em;
+	font-size: 70%;
+	line-height: 1.1;
+}
+
+tr:hover, td.start:hover, td.end:hover
+{
+	background: #FF9;
+}
+
+th, td
+{
+	padding: .3em .5em;
+}
+
+th
+{
+	font-weight: normal;
+	text-align: left;
+	background: url(tabletree-arrow.gif) no-repeat 2px 50%;
+	padding-left: 15px;
+}
+
+th.name { width: 12em; }
+th.location { width: 12em; }
+th.color { width: 10em; }
+
+thead th
+{
+	background: #c6ceda;
+	border-color: #fff #fff #888 #fff;
+	border-style: solid;
+	border-width: 1px 1px 2px 1px;
+	padding-left: .5em;
+}
+
+tbody th.start
+{
+	background: url(tabletree-dots.gif) 18px 54% no-repeat;
+	padding-left: 26px;
+}
+
+tbody th.end
+{
+	background: url(tabletree-dots2.gif) 18px 54% no-repeat;
+	padding-left: 26px;
+}
