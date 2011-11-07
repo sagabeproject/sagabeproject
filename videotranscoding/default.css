@@ -240,7 +240,7 @@ h2.active {background-position: left bottom;}
 	margin: 0 0 5px; padding: 0;
 	overflow: hidden;
 	font-size: 1.2em;
-	width: 500px;
+	width: "100%";
 	clear: both;
 	background: #f0f0f0;
 	border: 1px solid #d6d6d6;
