@@ -11,8 +11,7 @@
 <title>Mime-360 : Video Transcoding Monitor</title>
 <script type="text/javascript"
 src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
-
-<script>
+<script type = "text/javascript">
 <?php
 
 $i = 0;
@@ -42,6 +41,7 @@ for($j = 0; $j < count($video_path); $j++)
 {
 	$path_parts = pathinfo($video_path[$j]);
 	$fp_arr[$j] = $path_parts['dirname'];
+	$fp_arr[$j] = str_replace('\\', '\\\\', $fp_arr[$j]);
 	$fn_arr[$j] = $path_parts['filename'];
 	$file_format_arr[$j] = $path_parts['extension'];
 }
@@ -51,10 +51,9 @@ $len = count($video_path);
 echo $len;
 
 ?>
-</script>
 
-<script type = "text/javascript">
-/*function checkUncheck(quality)
+
+function checkUncheck(quality)
 {
 	for (i = 0; i < quality.length; i++)
 		quality[i].checked = true ;
@@ -63,7 +62,7 @@ echo $len;
 function uncheckAll(quality)
 {
 	quality[0].checked = false;
-}*/
+}
 
 
 var checked=1;
@@ -91,8 +90,10 @@ checked=checked*(-1);
 
 }
 }
+
 function func()
 {
+alert('func!');
 <?php
 for($i=0;$i<$len;$i++)
 {
@@ -137,7 +138,7 @@ xmlhttp1.send(null);
 }
 ?>
 
- window.location = "Monitor.php"
+ window.location = "Monitor.php";
 
 }
 </script>
@@ -192,7 +193,7 @@ xmlhttp1.send(null);
 						Android
 					</td>
 					
-						<td><input type="checkbox" id="l<?php echo $j; ?>c10" value="a0" name = "<?php echo $fn_arr[$j]."_".$file_format_arr[$j]; ?>_android" onClick = "checkUncheck(document.chooseFormatForm.<?php echo $fn_arr[$j]."_".$file_format_arr[$j]; ?>_android)">All</input></td -->
+						<td><input type="checkbox" id="l<?php echo $j; ?>c10" value="a0" name = "<?php echo $fn_arr[$j]."_".$file_format_arr[$j]; ?>_android" onClick = "checkUncheck(document.chooseFormatForm.<?php echo $fn_arr[$j]."_".$file_format_arr[$j]; ?>_android)">All</input></td>
 						<td><input type="checkbox" id="l<?php echo $j; ?>c1" value="a1" name = "<?php echo $fn_arr[$j]."_".$file_format_arr[$j]; ?>_android" onClick = "uncheckAll(document.chooseFormatForm.<?php echo $fn_arr[$j]."_".$file_format_arr[$j]; ?>_android)">Low Quality</input></td>
 						<td><input type="checkbox" id="l<?php echo $j; ?>c2" value="a2" name = "<?php echo $fn_arr[$j]."_".$file_format_arr[$j]; ?>_android" onClick = "uncheckAll(document.chooseFormatForm.<?php echo $fn_arr[$j]."_".$file_format_arr[$j]; ?>_android)">Medium Quality</input></td>
 						<td><input type="checkbox" id="l<?php echo $j; ?>c3" value="a3" name = "<?php echo $fn_arr[$j]."_".$file_format_arr[$j]; ?>_android" onClick = "uncheckAll(document.chooseFormatForm.<?php echo $fn_arr[$j]."_".$file_format_arr[$j]; ?>_android)">High Quality</input></td>

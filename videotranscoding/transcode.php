@@ -69,20 +69,20 @@
 			
 			$(document).ready( function() {
 				
-				$('#fileTreeDemo_1').fileTree({ root: 'D:\\', script: 'jqueryFileTree.php' }, function(file) { 
+				$('#fileTreeDemo_1').fileTree({ root: 'C:\\', script: 'jqueryFileTree.php' }, function(file) { 
 					//addCheckbox($('#txtName').val());
 					addCheckbox(file);
 				});
 				
-				$('#fileTreeDemo_2').fileTree({ root: 'D:\\', script: 'jqueryFileTree.php', folderEvent: 'click', expandSpeed: 750, collapseSpeed: 750, multiFolder: false }, function(file) { 
+				$('#fileTreeDemo_2').fileTree({ root: 'C:\\', script: 'jqueryFileTree.php', folderEvent: 'click', expandSpeed: 750, collapseSpeed: 750, multiFolder: false }, function(file) { 
 					alert(file);
 				});
 				
-				$('#fileTreeDemo_3').fileTree({ root: 'D:\\', script: 'jqueryFileTree.php', folderEvent: 'click', expandSpeed: 750, collapseSpeed: 750, expandEasing: 'easeOutBounce', collapseEasing: 'easeOutBounce', loadMessage: 'Un momento...' }, function(file) { 
+				$('#fileTreeDemo_3').fileTree({ root: 'C:\\', script: 'jqueryFileTree.php', folderEvent: 'click', expandSpeed: 750, collapseSpeed: 750, expandEasing: 'easeOutBounce', collapseEasing: 'easeOutBounce', loadMessage: 'Un momento...' }, function(file) { 
 					alert(file);
 				});
 				
-				$('#fileTreeDemo_4').fileTree({ root: 'D:\\', script: 'jqueryFileTree.php', folderEvent: 'dblclick', expandSpeed: 1, collapseSpeed: 1 }, function(file) { 
+				$('#fileTreeDemo_4').fileTree({ root: 'C:\\', script: 'jqueryFileTree.php', folderEvent: 'dblclick', expandSpeed: 1, collapseSpeed: 1 }, function(file) { 
 					alert(file);
 				});
 				
