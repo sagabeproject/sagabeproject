@@ -66,7 +66,8 @@
 		<link href="jqueryFileTree.css" rel="stylesheet" type="text/css" media="screen" />
 		
 		<script type="text/javascript">
-			
+			var vid = 0;
+			var labelvid = 0;
 			$(document).ready( function() {
 				
 				$('#fileTreeDemo_1').fileTree({ root: 'C:\\', script: 'jqueryFileTree.php' }, function(file) { 
@@ -92,19 +93,25 @@
 				var container = $('#videoToBeTranscoded');
 				var inputs = container.find('input');
 				var id = inputs.length+1;
+				
 
-				var html = '<tr><td><input type="checkbox" name = "video[]" value="'+name+'" checked = true/> <label for="cb'+id+'">'+name+'</label></td></tr>';
+				var html = '<tr><td><input type="checkbox" name = "video[]" value="'+name+'" id = vid'+(vid++)+' checked = true/> <label id="labelvid'+(labelvid++)+'" for="cb'+id+'">'+name+'</label></td></tr>';
 				container.append($(html));
 }
 
 			function clearVideos(){
 			
-			var videoArray = document.selectedVideos.elements["video"];
+			
+			//var videoArray = document.selectedVideos.elements["video"];
+			var videoArray = document.getElementsByName("video[]");
 			
 			for(var i=0; i<videoArray.length; i++){
-				if(document.getElementById(video[i]).checked == false)
+				if(document.getElementById("vid"+i).checked == false)
 				{
-					document.getElementById(video[i]).style.display = "none";
+					document.getElementById("vid"+i).style.display = "none";
+					document.getElementById("labelvid"+i).style.display = "none";
+					
+					
 				}
 			}
 				/*for (i=0;i<document.selectedVideos.elements.length;i++)
@@ -114,6 +121,14 @@
 						document.selectedVideos.elements[i].style.display = "none";
 					}
 				}*/
+			}
+			
+			function validate() {
+			var videoArray = document.getElementsByName("video[]");
+			if(videoArray.length == 0) {
+				alert("No videos selected. Select video(s) from the list.");
+				return false;
+			}
 			}
 
 		</script>
@@ -161,7 +176,7 @@
 	<div class="holder">
 
 		<h1>Select Video to be Transcoded</h1>
-        <form name = "selectedVideos" action="chooseformattry.php" method="post">
+        <form name = "selectedVideos" action="chooseformattry.php" method="post" onSubmit = "return validate()">
 
         <table width="100%">
         	<tr>
