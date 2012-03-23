@@ -191,10 +191,12 @@
         	</tr>
         </table>
         
-        
-        <a name="Clear Unselected" id="Clear Unselected" value="Clear Unselected" onClick="clearVideos()" class="button" background:url(img/button_cancel.jpg) no-repeat 0px 0px;>Clear Unselected</a>
-        <a href="" class="button" background:url(img/buttons.jpg) no-repeat 0px 0px;>Choose Format >></a>
-		<input type = "submit" value = "OK">
+        <table width="100%">
+		<tr>
+        <td><button type="button" name="Clear Unselected" id="Clear Unselected" value="Clear Unselected" onClick="clearVideos()" class="button" no-repeat 0px 0px;>Clear Unselected</button></td>
+		<td><button type = "submit" value = "OK" align = "right">OK</td>
+		</tr>
+		</table>
         </form>
 
 	</div>

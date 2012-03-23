@@ -1,32 +1,38 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
+<?php require_once ('dbConnect.php');?>
 <meta http-equiv="page-exit" content="blendTrans (Duration=2)">
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
 <meta name="description" content="description"/>
 <meta name="keywords" content="keywords"/> 
 <meta name="author" content="author"/> 
+
 <link rel="stylesheet" type="text/css" href="default.css" media="screen"/>
 <title>Mime-360 : Video Transcoding Monitor</title>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<?php @ require_once ('dbConnect.php'); ?>
-
 <script type = "text/javascript">
 
+
+
+</script>
+
+</head>
+
+<body>
+<script>
 function clearFinished(video)
 {
 var table = document.getElementById("monitor_table");
+
 <?php
 for($i=0; $i<video.length;$i++)
 alert($video[$i]);
 
-
-$rs = mysql_query("SELECT status_id 
-					FROM `vt_process_master`
-					WHERE file_name = \"?> document.write($video[$i]); <?php\"");
+$query = "SELECT status_id FROM 'vt_process_master' WHERE file_name ='".$video[$i]."';";
+$rs = mysql_query($query);
 					
-		//or die ("Unable to complete query1");
+//or die ("Unable to complete query1");
 
 		$status_id = mysql_result($rs,$i,"status_id");
 		
@@ -41,13 +47,19 @@ $rs = mysql_query("SELECT status_id
 
 }
 
+function refresh15seconds()
+{
+	if((document.monitor_form.refresh15sec).checked == true)
+	{
+		alert("true!")
+		<?php echo "<META HTTP-EQUIV=\"refresh\" CONTENT=\"5\">"; ?>
+	}
+	else
+	{
+		<?php echo "<META HTTP-EQUIV=\"refresh\" CONTENT=\"5\">"; ?>
+	}
+}
 </script>
-
-</head>
-
-
-
-<body>
 
 <div class="container">
 
@@ -76,15 +88,28 @@ $rs = mysql_query("SELECT status_id
 
 <?php
 
-$rs = mysql_query("	SELECT file_name, status_desc, platform_name, quality_name
+/*$rs = mysql_query("	SELECT file_name, status_desc, platform_name, quality_name
 					FROM `vt_process_master` AS a, vt_status_lookup AS b, vt_inputdata_master AS c, vt_format_lookup AS d, vt_quality_lookup AS e, vt_platform_lookup as f
 					WHERE a.status_id = b.status_id
 					AND a.queued_file_id = c.file_id
 					AND a.op_format_id = d.format_id
 					AND d.quality_id = e.quality_id
 					AND d.platform_id = f.platform_id
-				")
-				   
+				")*/
+				
+$rs = mysql_query("SELECT file_name, status_desc, platform_name, quality_name
+				   FROM `vt_process_master` AS a
+				   INNER JOIN vt_status_lookup AS b
+				   ON a.status_id = b.status_id
+				   INNER JOIN vt_inputdata_master AS c
+				   ON a.queued_file_id = c.file_id
+				   INNER JOIN vt_format_lookup AS d
+				   ON a.op_format_id = d.format_id
+				   INNER JOIN vt_quality_lookup AS e
+				   ON d.quality_id = e.quality_id
+				   INNER JOIN vt_platform_lookup as f
+				   ON d.platform_id = f.platform_id"
+				  )				   
 		or die ("Unable to complete query1");
 		
 		$video_info = mysql_fetch_array($rs);
@@ -102,6 +127,7 @@ $rs = mysql_query("	SELECT file_name, status_desc, platform_name, quality_name
         <th class="cpu">CPU</th>
         <th class="memory">Memory</th>
         <th class="status">Status</th>
+		<th class="progress">Progress</th>
         <th class="estimatedtime">Estimated time to finish</th>
         </tr>
       </thead>
@@ -123,6 +149,14 @@ $rs = mysql_query("	SELECT file_name, status_desc, platform_name, quality_name
 			echo $platform_name." ".$quality_name."</div>";
 			echo "</label></th><td>90%</td><td>5%</td>";
 			echo "<td class=\"start\">".$video_status."</td>";
+$str = "<div class=\"meter-wrap\">
+			<div class=\"meter-value\" style=\"background-color: #0a0; width: 40%;\">
+				<div class=\"meter-text\">
+					In progress
+				</div>
+			</div>
+		</div>";
+			echo "<td class=\"progress\">".$str."</td>";
 			echo "<td>3 hrs 14 min</td></tr>";		
 			
 			$i++;
@@ -134,7 +168,7 @@ $rs = mysql_query("	SELECT file_name, status_desc, platform_name, quality_name
   </table>
   
   <p align="right">
-    <input type="radio" name="radio" id="refresh15sec" value=""/>
+    <input type="checkbox" name="refresh15sec" id="refresh15sec" value="" onClick = "refresh15seconds()"/>
     Refresh automatically every 15 seconds
  </p>
   <p>
